@@ -1,0 +1,42 @@
+﻿@using customs.Models
+@{
+    ViewData["Title"] = "Store";
+    FileView[] files = ViewBag.Files;
+    DateTime now = DateTime.UtcNow;
+}
+
+<div class="container">
+    <div class="row">
+        @if (files.Length > 0)
+        {
+            <div class="col-12">
+                <p>There are @files.Length files</p>
+            </div>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">File</th>
+                            <th scope="col">Lifetime</th>
+                            <th scope="col">Uploaded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var f in files)
+                        {
+                            <tr>
+                                <th scope="col">@f.Name</th>
+                                <th scope="col">@f.Lifetime</th>
+                                <th scope="col">@f.Uploadtime</th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p>There are no files yet</p>
+        }
+    </div>
+</div>

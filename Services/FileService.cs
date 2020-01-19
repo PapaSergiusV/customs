@@ -1,0 +1,49 @@
+using System;
+using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+
+namespace customs
+{
+    public class FileService : IFileService
+    {
+        private Context _db;
+        private string _path;
+        private IWebHostEnvironment _appEnvironment;
+        public FileService(Context context, IWebHostEnvironment appEnvironment)
+        {
+            _db = context;
+            _path = "/files/";
+            _appEnvironment = appEnvironment;
+        }
+
+        public Models.File[] All() => _db.Files.OrderBy(x => x.Uploadtime).ToArray();
+
+        public Models.File Find(int id) => _db.Files.Find(id);
+
+        public Models.File[] GetOutdated() => _db.Files.Where(x => x.Killtime < DateTime.UtcNow).ToArray();
+
+        public void Save(IFormFile uploadedFile, int hours)
+        {
+            if (uploadedFile == null)
+                return;
+            string folder = $"{_appEnvironment.WebRootPath}{_path}{DateTime.UtcNow.ToFileTimeUtc().ToString()}";
+            Directory.CreateDirectory(folder);
+            string path = $"{folder}/{uploadedFile.FileName}";
+            Models.File file = new Models.File(path, hours);
+            _db.Files.Add(file);
+            _db.SaveChanges();
+            FileStream fs = new FileStream(path, FileMode.Create);
+            uploadedFile.CopyTo(fs);
+            fs.Close();
+        }
+
+        public void Destroy(int id)
+        {
+            Models.File file = _db.Files.Find(id);
+            file.Delete();
+            _db.SaveChanges();
+        }
+    }
+}
