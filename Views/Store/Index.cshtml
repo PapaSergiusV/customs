@@ -25,7 +25,11 @@
                         @foreach (var f in files)
                         {
                             <tr>
-                                <th scope="col">@f.Name</th>
+                                <th scope="col">
+                                    <a href=@f.Link>
+                                        @f.Name
+                                    </a>
+                                </th>
                                 <th scope="col">@f.Lifetime</th>
                                 <th scope="col">@f.Uploadtime</th>
                             </tr>

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using customs.Models;
 
 namespace customs.Controllers
 {
@@ -25,7 +24,7 @@ namespace customs.Controllers
         public IActionResult Index()
         {
             DateTime now = DateTime.UtcNow;
-            ViewBag.Files = files.All().Select(f => new FileView(f.Path, f.Killtime, f.Uploadtime)).ToArray();
+            ViewBag.Files = files.All().Select(f => new FileView(f)).ToArray();
             return View();
         }
 
@@ -33,6 +32,13 @@ namespace customs.Controllers
         public IActionResult Upload()
         {
             return View();
+        }
+
+        [HttpGet]
+        public FileResult Download(int id)
+        {
+            string path = files.Find(id).Path;
+            return File(System.IO.File.ReadAllBytes(path), "application/octet-stream", Path.GetFileName(path));
         }
         
         [HttpPost]

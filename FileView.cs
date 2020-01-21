@@ -1,20 +1,23 @@
 using System;
+using customs.Models;
 
 namespace customs
 {
     public class FileView
     {
+        public string Link { get; }
         public string Name { get; }
         public string Path { get; }
         public string Lifetime { get; }
         public string Uploadtime { get; }
-        public FileView(string path, DateTime killtime, DateTime uploadtime)
+        public FileView(File file)
         {
             DateTime now = DateTime.UtcNow;
-            Path = path;
-            Name = System.IO.Path.GetFileName(path);
-            Lifetime = killtime < now ? "0" : (killtime - now).ToString();
-            Uploadtime = uploadtime.ToString();
+            Link = $"/Store/Download/{file.Id}";
+            Path = file.Path;
+            Name = System.IO.Path.GetFileName(Path);
+            Lifetime = file.Killtime < now ? "0" : (file.Killtime - now).ToString();
+            Uploadtime = file.Uploadtime.ToString();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace customs
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Store}/{action=Index}");
+                    pattern: "{controller=Store}/{action=Index}/{id?}");
             });
 
             app.Run(async (context) => {

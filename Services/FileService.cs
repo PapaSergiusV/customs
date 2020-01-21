@@ -18,7 +18,7 @@ namespace customs
             _appEnvironment = appEnvironment;
         }
 
-        public Models.File[] All() => _db.Files.OrderBy(x => x.Uploadtime).ToArray();
+        public Models.File[] All() => _db.Files.OrderBy(x => x.Killtime).ToArray();
 
         public Models.File Find(int id) => _db.Files.Find(id);
 
