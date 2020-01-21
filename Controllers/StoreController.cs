@@ -47,5 +47,12 @@ namespace customs.Controllers
             files.Save(file, hours);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            files.Destroy(id);
+            return RedirectToAction("Index");
+        }
     }
 }

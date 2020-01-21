@@ -18,7 +18,8 @@
                         <tr>
                             <th scope="col">File</th>
                             <th scope="col">Lifetime</th>
-                            <th scope="col">Uploaded</th>
+                            <th scope="col">Uploaded at</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,12 +27,15 @@
                         {
                             <tr>
                                 <th scope="col">
-                                    <a href=@f.Link>
+                                    <a href="/Store/Download/@f.Id">
                                         @f.Name
                                     </a>
                                 </th>
                                 <th scope="col">@f.Lifetime</th>
                                 <th scope="col">@f.Uploadtime</th>
+                                <th scope="col">
+                                    <a href="/Store/Delete/@f.Id">X</a>
+                                </th>
                             </tr>
                         }
                     </tbody>
@@ -40,7 +44,7 @@
         }
         else
         {
-            <p>There are no files yet</p>
+            <p>There are no files</p>
         }
     </div>
 </div>

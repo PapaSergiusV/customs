@@ -5,7 +5,7 @@ namespace customs
 {
     public class FileView
     {
-        public string Link { get; }
+        public int Id { get; }
         public string Name { get; }
         public string Path { get; }
         public string Lifetime { get; }
@@ -13,11 +13,11 @@ namespace customs
         public FileView(File file)
         {
             DateTime now = DateTime.UtcNow;
-            Link = $"/Store/Download/{file.Id}";
+            Id = file.Id;
             Path = file.Path;
             Name = System.IO.Path.GetFileName(Path);
             Lifetime = file.Killtime < now ? "0" : (file.Killtime - now).ToString();
-            Uploadtime = file.Uploadtime.ToString();
+            Uploadtime = file.Uploadtime.ToString("h:mm tt dd.MM.yy ");
         }
     }
 }

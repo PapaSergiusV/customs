@@ -42,7 +42,9 @@ namespace customs
         public void Destroy(int id)
         {
             Models.File file = _db.Files.Find(id);
-            file.Delete();
+            File.Delete(file.Path);
+            Directory.Delete(new FileInfo(file.Path).DirectoryName);
+            _db.Files.Remove(file);
             _db.SaveChanges();
         }
     }
