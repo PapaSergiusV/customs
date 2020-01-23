@@ -1,5 +1,5 @@
 using System;
-using System.Text;
+using System.Runtime.CompilerServices;
 using customs.Models;
 
 namespace customs
@@ -21,11 +21,11 @@ namespace customs
             Uploadtime = file.Uploadtime.ToString("h:mm tt dd.MM.yy ");
         }
 
-        private string SpanToString(in TimeSpan span)
-        {
-            string minutes = span.Minutes > 9 ? span.Minutes.ToString() : $"0{span.Minutes}";
-            string seconds = span.Seconds > 9 ? span.Seconds.ToString() : $"0{span.Seconds}";
-            return $"{span.Days} days {span.Hours}:{minutes}:{seconds}";
-        }
+        private string SpanToString(in TimeSpan span) =>
+            $"{span.Days} days {span.Hours}:{FormatTime(span.Minutes)}:{FormatTime(span.Seconds)}";
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string FormatTime(int time) =>
+            time > 9 ? time.ToString() : $"0{time}";
     }
 }
