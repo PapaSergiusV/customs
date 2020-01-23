@@ -8,14 +8,15 @@ namespace customs.Models
         public string Path { get; set; }
         public DateTime Uploadtime { get; set; }
         public DateTime Killtime { get; set; }
-        public bool Deleted { get; private set; }
+        public int UserId { get; set; }
+        public User User { get; set ;}
 
-        public File(string path, DateTime uploadtime, DateTime killtime, bool deleted)
+        public File(string path, DateTime uploadtime, DateTime killtime, int userId)
         {
             Path = path;
             Uploadtime = uploadtime;
             Killtime = killtime;
-            Deleted = deleted;
+            UserId = userId;
         }
 
         public File(string path, int lifetime)
@@ -23,10 +24,6 @@ namespace customs.Models
             Path = path;
             Uploadtime = DateTime.UtcNow;
             Killtime = DateTime.UtcNow.AddHours(lifetime);
-        }
-        public void Delete()
-        {
-            Deleted = true;
         }
     }
 }
