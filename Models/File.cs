@@ -19,11 +19,12 @@ namespace customs.Models
             UserId = userId;
         }
 
-        public File(string path, int lifetime)
+        public File(string path, int lifetime, int userId)
         {
             Path = path;
             Uploadtime = DateTime.UtcNow;
             Killtime = DateTime.UtcNow.AddHours(lifetime);
+            UserId = userId;
         }
     }
 }

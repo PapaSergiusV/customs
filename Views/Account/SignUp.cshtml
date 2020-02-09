@@ -1,0 +1,32 @@
+@model customs.ViewModels.SignupView
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<h2>SignUp</h2>
+
+<form asp-action="SignUp" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly" />
+    <div>
+        <div class="form-group">
+            <label asp-for="Email">Email</label><br />
+            <input type="text" asp-for="Email" />
+            <span asp-validation-for="Email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Password</label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <div class="form-group">
+            <label asp-for="PasswordConfirmation">Password Again</label><br />
+            <input asp-for="PasswordConfirmation" />
+            <span asp-validation-for="PasswordConfirmation" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="SignUp" class="btn btn-outline-dark" />
+            <span>&nbsp;or&nbsp;</span>
+            <a asp-action="SignIn" asp-controller="Account">SignIn</a>
+        </div>
+    </div>
+</form>

@@ -8,7 +8,7 @@ namespace customs
         File[] All();
         File Find(int id);
         File[] GetOutdated();
-        void Save(IFormFile file, int hours);
+        void Save(IFormFile file, int hours, int userId);
         void Destroy(int id);
     }
 }
