@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,24 +27,39 @@ namespace customs
             services.AddControllersWithViews();
             // Add service to connect with database context
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Context>(options => options.UseNpgsql(connection).EnableSensitiveDataLogging());
+            services.AddDbContext<Context>(options => options.UseNpgsql(connection));//.EnableSensitiveDataLogging());
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/SignIn");
+                });
+
+            services.AddAuthorization();
             
             services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Context db)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UsePHPFilter();
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
 
-            // app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            // app.Use(async (context, next) => {
+            //     string id = context.User.Claims.Where(c => c.Type == "id").Select(c => c.Value).SingleOrDefault();
+            //     context.Items["current_user"] = db.Users.Find(id);
+            //     await next();
+            // });
 
             app.UseEndpoints(endpoints =>
             {

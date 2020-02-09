@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using customs.Models;
 
-namespace customs
+namespace customs.ViewModels
 {
     public class FileView
     {

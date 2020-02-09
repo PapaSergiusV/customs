@@ -21,6 +21,9 @@ namespace customs
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(option => {
+                        option.ListenLocalhost(8001);
+                    });
                     webBuilder.UseStartup<Startup>();
                 })
                 .ConfigureServices(services => {
