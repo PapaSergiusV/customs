@@ -18,7 +18,7 @@ namespace customs.Controllers
     {
         private readonly ILogger<StoreController> _logger;
         private IFileService files;
-        private Models.User CurrentUser;
+        // private Models.User CurrentUser;
 
         public StoreController(ILogger<StoreController> logger, IFileService service)
         {

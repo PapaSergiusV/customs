@@ -13,13 +13,12 @@
                 <p>There are @files.Length files</p>
             </div>
             <div class="col-12">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">File</th>
                             <th scope="col">Lifetime</th>
-                            <th scope="col">Uploaded</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,9 +31,10 @@
                                     </a>
                                 </th>
                                 <th scope="col">@f.Lifetime</th>
-                                <th scope="col">@f.Uploadtime</th>
-                                <th scope="col">
-                                    <a href="/Store/Delete/@f.Id">X</a>
+                                <th class="remove-btn" scope="col">
+                                    <a href="/Store/Delete/@f.Id">
+                                        &times;
+                                    </a>
                                 </th>
                             </tr>
                         }
