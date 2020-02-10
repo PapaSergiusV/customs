@@ -10,12 +10,12 @@
     <div>
         <div class="form-group">
             <label asp-for="Email">Email</label><br/>
-            <input type="text" asp-for="Email" />
+            <input type="text" asp-for="Email" required />
             <span asp-validation-for="Email" />
         </div>
         <div class="form-group">
             <label asp-for="Password">Password</label><br/>
-            <input asp-for="Password" />
+            <input asp-for="Password" required />
             <span asp-validation-for="Password" />
         </div>
         <div class="form-group">

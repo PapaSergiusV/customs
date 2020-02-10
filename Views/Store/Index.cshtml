@@ -5,46 +5,56 @@
     DateTime now = DateTime.UtcNow;
 }
 
-<div class="container">
-    <div class="row">
-        @if (files.Length > 0)
-        {
-            <div class="col-12">
+<div class="row">
+    @if (files.Length > 0)
+    {
+        <div class="col-12">
+            @if (files.Length > 1)
+            {
                 <p>There are @files.Length files</p>
-            </div>
-            <div class="col-12">
-                <table class="table table-striped">
-                    <thead>
+            }
+            else
+            {
+                <p>There is one file</p>
+            }
+        </div>
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">File</th>
+                        <th scope="col">Lifetime</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in files)
+                    {
                         <tr>
-                            <th scope="col">File</th>
-                            <th scope="col">Lifetime</th>
-                            <th scope="col"></th>
+                            <th scope="col">
+                                <a href="/Store/Download/@f.Id">
+                                    @f.Name
+                                </a>
+                            </th>
+                            <th scope="col">@f.Lifetime</th>
+                            <th class="remove-btn" scope="col">
+                                <a href="/Store/Delete/@f.Id">
+                                    &times;
+                                </a>
+                            </th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var f in files)
-                        {
-                            <tr>
-                                <th scope="col">
-                                    <a href="/Store/Download/@f.Id">
-                                        @f.Name
-                                    </a>
-                                </th>
-                                <th scope="col">@f.Lifetime</th>
-                                <th class="remove-btn" scope="col">
-                                    <a href="/Store/Delete/@f.Id">
-                                        &times;
-                                    </a>
-                                </th>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        }
-        else
-        {
-            <p>There are no files</p>
-        }
-    </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="col-12">
+            <p>
+                There are no files yet.&nbsp;
+                @Html.ActionLink("Upload", "Upload", "Store")
+            </p>
+        </div>
+    }
 </div>
